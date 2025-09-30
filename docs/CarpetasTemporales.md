@@ -1,0 +1,6 @@
+### Carpetas temporales
+Aquí se encuentra la explicación de qué carpteas temporales se utilizan qué módulos las utilizan y para qué se utilizan
+
+1. __filesUploadedTemp__: Es utilizada por el módulo _api/files_ para guardar temporalmente los archivos que el usuario sube desde su sesión. Primero se almacenen temporalmente aquí por medio de multer y después, desde esta carpeta, se toman los archivos para subirlos al bucket s3 de AWS. Una vez que el archivo se ha subido al s3, el archivo temporal en esa carpeta se elimina.
+2. __filesTemp__: La utiliza el módulo APIRest _api/ia-functions_ y el web socket _ws/wsVideoFunction_. Cuando se procesa una petición para transcribir o resumir un video, es necesario descargar el video almacenado en el S3 para posteriormente pasarlo a Gemini. En esta capeta se descarga temporalmente el video y cuando se borra una vez que haya sido pasado a Gemini.
+3. __filesTemp/questions-video__: Se utiliza para el ws de _ws/questions-video_. Cuando se hace una pregunta acerca del video, se necesita descargar tempralmente el video para posteriormente pasarselo a Gemini. En esta carpteda se guarda el video temporal del S3 y se borra una vez que se le pasa a Gemini. La ruta final del video almacenado temporalmete luce algo así: 

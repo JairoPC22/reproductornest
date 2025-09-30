@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17.5
+    restart: always
+    ports:
+      - "${PGPORT}:5432"
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    container_name: postgres-dacuai
+    volumes:
+      - ./postgres:/var/lib/postgres/data
+  mongo:
+    image: mongo:5
+    container_name: mongo-dacuai
+    restart: always
+    ports:
+      - "${MONGOPORT}:27017"
+    environment:
+      MONGODB_DATABASE: ${MONGODB_DATABASE_NAME}
+    volumes:
+      - ./mongo:/data/db
